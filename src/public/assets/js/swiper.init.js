@@ -34,10 +34,10 @@ jQuery('.swiper-slide').each( function(index){
                     var innerTranslate = slideProgress * innerOffset;
                     swiper.slides[i].querySelector(".slide-inner").style.transform =
                     "translate3d(" + innerTranslate + "px, 0, 0)";
-                }      
+                }
             },
 
-            touchStart: function() {
+            touchSt      art: function() {
               var swiper = this;
               for (var i = 0; i < swiper.slides.length; i++) {
                 swiper.slides[i].style.transition = "";

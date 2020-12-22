@@ -16,6 +16,8 @@
     <meta name="email" content="shreethemes@gmail.com" />
     <meta name="website" content="http://www.shreethemes.in" />
     <meta name="Version" content="v2.5.1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicons.ico') }}" />
     <!-- Bootstrap -->
@@ -42,7 +44,7 @@
     />
     <link href="{{ asset('assets/css/colors/default.css') }}" rel="stylesheet" id="color-opt" />
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" />
-    @livewireStyles
+    @yield('css')
   </head>
 
   <body>
@@ -62,13 +64,13 @@
       <div class="container">
         <!-- Logo container-->
         <div>
-          <a class="logo" href="index.html">
+          <a class="logo" href="{{ route('home') }}">
             <img src="{{ asset('assets/images/g2g-logo.png') }}" height="64" alt="" />
           </a>
         </div>
         <div class="buy-button">
-            <a href="https://1.envato.market/4n73n" target="_blank" class="btn btn-sm btn-outline-primary">Sign In</a>
-            <a href="https://1.envato.market/4n73n" target="_blank" class="btn btn-sm btn-outline-primary">Sign Out</a>
+            <a href="{{ route('signIn') }}" class="btn btn-sm btn-outline-primary">Sign In</a>
+            <a href="{{ route('signUp') }}" class="btn btn-sm btn-outline-primary">Sign Up</a>
         </div>
 
         <!-- End Logo container-->
@@ -89,13 +91,12 @@
         <div id="navigation">
           <!-- Navigation Menu-->
           <ul class="navigation-menu">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html">About</a></li>
-            <li><a href="index.html">How It Works</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">How It Works</a></li>
           </ul>
             <div class="buy-menu-btn d-none">
-                <a href="https://1.envato.market/4n73n" target="_blank" class="btn btn-sm btn-outline-primary">Sign In</a>
-                <a href="https://1.envato.market/4n73n" target="_blank" class="btn btn-sm btn-outline-primary">Sign Out</a>
+                <a href="{{ route('signIn') }}" class="btn btn-sm btn-outline-primary">Sign In</a>
+                <a href="{{ route('signUp') }}" class="btn btn-sm btn-outline-primary">Sign Up</a>
             </div>
           <!--end navigation menu-->
 
@@ -108,16 +109,15 @@
     <!--end header-->
     <!-- Navbar End -->
 
-    {{ $slot }}
+    @yield('content')
 
-    @livewireScripts
     <!-- Footer Start -->
     <footer class="footer">
       <div class="container">
         <div class="row">
           <div class="col-lg-4 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
             <a href="#" class="logo-footer">
-              <img src="images/g2g-logo.png" height="44" alt="" />
+              <img src="{{ asset('assets/images/g2g-logo.png') }}" height="44" alt="" />
             </a>
             <p class="mt-4">
               Start working with Landrick that can provide everything you need
@@ -348,17 +348,19 @@
     <!-- Back to top -->
 
     <!-- javascript -->
-    <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('assets/js/scrollspy.min.js') }}"></script>
-    <!-- SLIDER -->
-    <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('assets/js/owl.init.js') }}"></script>
-    <!-- Icons -->
-    <script src="{{ asset('assets/js/feather.min.js') }}"></script>
-    <script src="https://unicons.iconscout.com/release/v2.1.9/script/monochrome/bundle.js"></script>
-    <!-- Main Js -->
-    <script src="{{ asset('assets/js/app.js') }}"></script>
+  <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/js/jquery.easing.min.js') }}"></script>
+  <script src="{{ asset('assets/js/scrollspy.min.js') }}"></script>
+  <!-- SLIDER -->
+  <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+  <script src="{{ asset('assets/js/owl.init.js') }}"></script>
+  <!-- Icons -->
+  <script src="{{ asset('assets/js/feather.min.js') }}"></script>
+  <script src="https://unicons.iconscout.com/release/v2.1.9/script/monochrome/bundle.js"></script>
+  <!-- Main Js -->
+  <script src="{{ asset('assets/js/app.js') }}"></script>
+  @stack('scripts')
+  {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
   </body>
 </html>
