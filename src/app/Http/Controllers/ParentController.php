@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Auth\Checker;
 use Illuminate\Http\Request;
 
 class ParentController extends Controller
 {
-    protected $baseUri;
-    protected $source;
-    protected $headers;
+    protected $baseUri, $source, $headers;
 
     public function __construct()
     {

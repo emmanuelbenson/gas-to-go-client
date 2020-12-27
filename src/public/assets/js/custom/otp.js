@@ -39,7 +39,6 @@ async function verify(event) {
     const token = document.querySelector("input[name='token']");
     const _token = document.querySelector("input[name='_token']");
     const actionType = document.querySelector("input[name='at']");
-    const callbackUrl = document.querySelector("input[name='cb']");
     const phone = document.querySelector("input[name='phone']");
 
     const data = {

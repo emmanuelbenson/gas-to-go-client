@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OTPController;
+use App\Http\Middleware\CheckAuth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -9,7 +11,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/sign-in', [AuthController::class, 'getSignIn'])->name('signIn');
-Route::post('/sign-in', [AuthController::class, 'getSignIn'])->name('signIn');
+Route::post('/sign-in', [AuthController::class, 'postSignIn'])->name('signIn');
 
 Route::get('/sign-up', [AuthController::class, 'getSignUp'])->name('signUp');
 Route::post('/sign-up', [AuthController::class, 'postSignUp'])->name('signUp');
@@ -24,3 +26,7 @@ Route::get('/verify-otp', [OTPController::class, 'getVerify'])->name('getVerifyO
 Route::post('/verify-otp', [OTPController::class, 'postVerify'])->name('postVerifyOtp');
 
 Route::post('/resend-otp', [OTPController::class, 'resend'])->name('resendOtp');
+
+Route::middleware([CheckAuth::class])->group(function () {
+    Route::get("/dashboard", [DashboardController::class, 'index'])->name('dashboard');
+});

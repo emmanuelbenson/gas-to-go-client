@@ -22,16 +22,18 @@
                   <div class="col-lg-12">
                     <div class="form-group position-relative">
                       <label
-                        >Your Email <span class="text-danger">*</span></label
+                        >Your Phone Number <span class="text-danger">*</span></label
                       >
                       <i data-feather="user" class="fea icon-sm icons"></i>
                       <input
-                        type="email"
+                        type="number"
                         class="form-control pl-5"
-                        placeholder="Email"
-                        name="email"
+                        placeholder="Enter your phone number"
+                        name="phoneNumber"
                         required=""
                       />
+                      <div id="phoneNumberError" class="text-danger"></div>
+                      @csrf
                     </div>
                   </div>
 
@@ -45,8 +47,10 @@
                         type="password"
                         class="form-control pl-5"
                         placeholder="Password"
+                        name="password"
                         required=""
                       />
+                      <div id="passwordError" class="text-danger"></div>
                     </div>
                   </div>
 
@@ -76,7 +80,7 @@
                     </div>
                   </div>
                   <div class="col-lg-12 mb-0">
-                    <button class="btn btn-primary btn-block">Sign in</button>
+                    <button id="btnSignIn" class="btn btn-primary btn-block">Sign In</button>
                   </div>
 
                   <div class="col-12 text-center">
@@ -104,3 +108,8 @@
     <!--end container-->
   </section>
 @endsection
+
+@push('scripts')
+<script src="{{ asset('assets/js/custom/ajaxRequest.js') }}"></script>
+<script src="{{ asset('assets/js/custom/signin.js') }}"></script>
+@endpush

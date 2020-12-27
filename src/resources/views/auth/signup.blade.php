@@ -130,7 +130,4 @@
 @push('scripts')
     <script src="{{ asset('assets/js/custom/auth.js') }}"></script>
     <script src="{{ asset('assets/js/custom/ajaxRequest.js') }}"></script>
-    <script>
-
-    </script>
 @endpush

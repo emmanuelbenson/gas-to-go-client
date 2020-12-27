@@ -44,9 +44,9 @@ class AuthController extends ParentController
 
             $otpData = [
                 "actionType" => "activate_account",
-                "callbackUrl" => "/api/v1/otp/verify",
                 "phoneNumber" => $apiResponse->data->phoneNumber
             ];
+
             $otpData = json_encode($otpData);
             $request->session()->put('otpData', $otpData);
 
@@ -65,7 +65,73 @@ class AuthController extends ParentController
 
     public function postSignIn(Request $request)
     {
-        //TODO
+        $request->validate([
+            "phoneNumber" => "required",
+            "password" => "required"
+        ]);
+
+        $data = [
+            "phoneNumber" => $request->get('phoneNumber'),
+            "password" => $request->get('password')
+        ];
+
+        $response = Http::withHeaders($this->headers)
+            ->post($this->baseUri . "/auth/signin", $data);
+
+        if ($response->status() == 422) {
+            Log::error($response);
+
+            return response()->json([
+                "message" => "Something went wrong. Please contact support."
+            ], 500);
+        }
+
+        if ($response->status() == 404) {
+            Log::error($response->status());
+            Log::error($response->body());
+
+            return response()->json($response->body(), $response->status());
+        }
+
+        if ($response->status() == 401) {
+            $otpData = [
+                "actionType" => "activate_account",
+                "phoneNumber" => $response['phoneNumber']
+            ];
+            $otpData = json_encode($otpData);
+            $request->session()->put('otpData', $otpData);
+
+            return response()->json([
+                "message" => $response['message']
+            ], $response->status());
+        }
+
+        if ($response->status() == 200) {
+            $data = json_decode($response->body());
+
+            $request->session()->put('authUser', $data->data);
+            return response()->json($response->body(), $response->status());
+        }
+
+        Log::debug($response->status());
+        Log::debug($response);
+
+        return response()->json([
+            "message" => "Something went wrong. Please contact support"
+        ], 500);
+    }
+
+    public function logOut(Request $request)
+    {
+        if ($request->get('uuid')) {
+            if (request()->session()->has($request->get('uuid'))) {
+                request()->session()->remove($request->get('uuid'));
+
+                return response()->json([
+                    "message" => "success"
+                ], 200);
+            }
+        }
     }
 
     public function getPasswordReset()

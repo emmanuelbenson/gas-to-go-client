@@ -20,7 +20,6 @@
                                         <i data-feather="key" class="fea icon-sm icons"></i>
                                         <input type="text" class="form-control pl-5" name="token" placeholder="Enter Your OTP" name="otp" required="">
                                         <input type="hidden" name="at" value="{{ !empty($otpData) ? $otpData->actionType : null }}">
-                                        <input type="hidden" name="cb" value="{{ !empty($otpData) ? $otpData->callbackUrl : null }}">
                                         <input type="hidden" name="phone" value="{{ !empty($otpData) ? $otpData->phoneNumber : null }}">
                                         @csrf
                                     </div>
